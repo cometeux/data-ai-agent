@@ -1,0 +1,13 @@
+month,region,channel,revenue,orders
+2026-01,North,Web,12000,120
+2026-01,South,Web,8000,80
+2026-02,North,Web,13500,125
+2026-02,South,Mobile,9200,92
+2026-03,North,Mobile,14800,132
+2026-03,South,Web,10100,100
+2026-04,North,Web,15000,140
+2026-04,South,Mobile,,105
+2026-05,North,Mobile,16500,150
+2026-05,South,Web,11000,110
+2026-06,North,Web,18000,160
+2026-06,North,Web,18000,160
