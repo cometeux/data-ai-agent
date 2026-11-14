@@ -34,6 +34,18 @@ streamlit run app.py
 
 Never commit a real API key or the secrets file. Use synthetic or non-sensitive datasets.
 
+## Try the included dataset
+
+Upload [examples/sample.csv](examples/sample.csv). It is entirely synthetic and deliberately includes one missing revenue value and one duplicate row, so the data-health view has concrete issues to surface.
+
+## Checks
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+These five regression tests cover JSON extraction, including Arabic text, markdown fences, nested objects, and braces inside quoted strings. They run without dependencies or API calls. GitHub Actions also checks Python syntax; this is not a live-model or full UI test.
+
 ## How it works
 
 `Upload → pandas profile → model proposes summary/chart specifications → column/type validation → Plotly rendering`
@@ -53,6 +65,9 @@ Data profiling and chart aggregation run in Python. Generated narrative uses the
 | File | Purpose |
 |---|---|
 | `app.py` | Upload flow, profiling, AI requests, charts and reports |
+| `json_utils.py` | JSON response extraction independent of the UI |
+| `tests/` | Offline parser regression tests |
+| `examples/` | Synthetic first-run dataset |
 | `theme.py` | Visual styling |
 | `state.py` | Supporting state utilities |
 | `requirements.txt` | Python dependencies |
