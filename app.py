@@ -9,6 +9,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from openai import OpenAI
+from json_utils import parse_analysis_json
 
 from theme import FONT_LINKS, get_theme_css
 
@@ -134,26 +135,6 @@ def profile_dataframe(df):
 def _get_client():
     return OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-def parse_analysis_json(text):
-    text = (text or "").strip()
-    if not text or text.find("{") == -1:
-        return None
-    start = text.find("{")
-    depth, end = 0, -1
-    for i in range(start, len(text)):
-        if text[i] == "{": depth += 1
-        elif text[i] == "}":
-            depth -= 1
-            if depth == 0:
-                end = i + 1
-                break
-    if end == -1:
-        return None
-    try:
-        return json.loads(text[start:end])
-    except json.JSONDecodeError:
-        pass
-    return {"summary": {"overview": "Analysis could not be parsed.", "key_insights": [], "recommendations": [], "final_summary": ""}, "charts": []}
 
 def _default_analysis_result():
     return {"summary": {"overview": "Analysis unavailable.", "top_finding": "", "biggest_risk": "", "biggest_opportunity": "", "notable_trend": "", "data_quality_concern": "", "recommended_next_step": "", "key_insights": [], "recommendations": [], "final_summary": ""}, "charts": []}
